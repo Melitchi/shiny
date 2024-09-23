@@ -7,7 +7,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Survey from './pages/survey/Survey'
 import Header from './components/header/Header'
 import Error from './pages/error/Error'
-import Result from './components/results/Result'
+import Result from './pages/results/Result'
+import Freelances from './pages/freelances/Freelances'
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
@@ -18,7 +19,7 @@ root.render(
         <Route path="/survey" element={<Survey />}></Route>
         <Route path="/survey/:questionNumber" element={<Survey />}></Route>
         <Route path="/results" element={<Result />}></Route>
-        <Route path="/freelances"></Route>
+        <Route path="/freelances" element={<Freelances />}></Route>
         <Route path="*" element={<Error />}></Route>
       </Routes>
     </Router>
