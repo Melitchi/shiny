@@ -1,0 +1,8 @@
+.logo {
+  display: flex;
+  flex-direction: row;
+}
+
+.title {
+  margin-left: -70px;
+}

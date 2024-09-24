@@ -9,10 +9,25 @@ import Header from './components/header/Header'
 import Error from './pages/error/Error'
 import Result from './pages/results/Result'
 import Freelances from './pages/freelances/Freelances'
+import { createGlobalStyle } from 'styled-components'
 const root = ReactDOM.createRoot(document.getElementById('root'))
+
+const GlobalStyle = createGlobalStyle`
+    div {
+      font-family: "Jacquarda Bastarda 9",comic sans ms, papyrus, sans;
+    }
+    
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`
+
 root.render(
   <React.StrictMode>
     <Router>
+      <GlobalStyle />
       <Header />
       <Routes>
         <Route path="/" element={<Home />}></Route>
