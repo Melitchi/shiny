@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import DefaultPicture from '../../assets/papyrus.png'
 import CardLabel from './CardLabel'
 import styled from 'styled-components'
-import colors from '../../utils/style/color'
+import colors from '../../utils/style/colors'
 const Card = ({ label, title, picture }) => {
   return (
     <CardWrapper

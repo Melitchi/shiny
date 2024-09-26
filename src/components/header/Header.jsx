@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import colors from '../../utils/style/color'
+import colors from '../../utils/style/colors'
 import lightLogo from '../../assets/light-logo.png'
 import './Header.css'
 const StyledLink = styled(Link)`
@@ -33,7 +33,7 @@ const Header = () => {
         <StyledLink $isFullLink to="/">
           Accueil
         </StyledLink>
-        <StyledLink to="/survey">Questionnaire</StyledLink>
+        <StyledLink to="/survey/1">Questionnaire</StyledLink>
         <StyledLink to="/freelances">Freelances</StyledLink>
       </div>
     </StyledNav>
