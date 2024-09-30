@@ -9,33 +9,28 @@ import Header from './components/header/Header'
 import Error from './pages/error/Error'
 import Result from './pages/results/Result'
 import Freelances from './pages/freelances/Freelances'
-import { createGlobalStyle } from 'styled-components'
+import Footer from './components/footer/footer'
+import { ThemeProvider, SurveyProvider } from './utils/context'
+import GlobalStyle from './utils/style/GlobalStyle'
 const root = ReactDOM.createRoot(document.getElementById('root'))
-
-const GlobalStyle = createGlobalStyle`
-    div {
-      font-family: "Jacquarda Bastarda 9",comic sans ms, papyrus, sans;
-    }
-    
-  .center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-`
 
 root.render(
   <React.StrictMode>
     <Router>
-      <GlobalStyle />
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/survey/:questionNumber" element={<Survey />}></Route>
-        <Route path="/results" element={<Result />}></Route>
-        <Route path="/freelances" element={<Freelances />}></Route>
-        <Route path="*" element={<Error />}></Route>
-      </Routes>
+      <ThemeProvider>
+        <SurveyProvider>
+          <GlobalStyle />
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/survey/:questionNumber" element={<Survey />}></Route>
+            <Route path="/results" element={<Result />}></Route>
+            <Route path="/freelances" element={<Freelances />}></Route>
+            <Route path="*" element={<Error />}></Route>
+          </Routes>
+          <Footer />
+        </SurveyProvider>
+      </ThemeProvider>
     </Router>
   </React.StrictMode>,
 )
