@@ -2,37 +2,20 @@ import { Link, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import './Survey.css'
 import colors from '../../utils/style/colors'
-import { useEffect, useState, useContext } from 'react'
+import { useContext } from 'react'
 import { Loader } from '../../utils/style/Atoms'
 import { SurveyContext } from '../../utils/context'
+import { useFetch } from '../../utils/hooks/index'
 
 const Survey = () => {
   const { questionNumber } = useParams()
   const questionNb = questionNumber === undefined ? 0 : Number(questionNumber)
   const next = questionNb + 1
   const previous = questionNb > 1 ? questionNb - 1 : 1
-  const [survey, setSurveyData] = useState({})
-  const [isLoading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const { data, isLoading, error } = useFetch(`http://localhost:8000/survey`)
+  const surveyData = data?.surveyData
 
-  useEffect(() => {
-    async function fetchSurvey() {
-      setLoading(true)
-      try {
-        const response = await fetch(`http://localhost:8000/survey`)
-        console.log(response)
-        const { surveyData } = await response.json()
-        setSurveyData(surveyData)
-      } catch (err) {
-        console.log(err)
-        setError(true)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchSurvey()
-  }, [])
-
+  useFetch(`http://localhost:8000/survey`)
   const { answers, saveAnswers } = useContext(SurveyContext)
 
   const saveReply = (answer) => {
@@ -49,7 +32,7 @@ const Survey = () => {
       ) : (
         <div>
           <h1>Question n°{questionNb}</h1>
-          <p>{survey[questionNb]}</p>
+          <p>{surveyData[questionNb]}</p>
           {answers && (
             <ReplyWrapper>
               <ReplyBox
@@ -68,7 +51,7 @@ const Survey = () => {
           )}
           <LinkWrapper className="top-margin">
             <Link to={'/survey/' + previous}>Précédent</Link>
-            {survey[questionNb + 1] ? (
+            {surveyData[questionNb + 1] ? (
               <Link to={'/survey/' + next}>Suivant</Link>
             ) : (
               <Link to="/results">Résultats</Link>
@@ -85,22 +68,6 @@ const StyledDiv = styled.div`
   margin: 150px;
 `
 
-const StyledLink = styled(Link)`
-  font: bold;
-  text-decoration: none;
-  background-color: #f9f9fc;
-  color: #333333;
-  padding: 10px 20px 10px 20px;
-  margin: 30px;
-  font-size: larger;
-  &:hover {
-    border-top: 1px solid ${colors.borderColor};
-    border-right: 1px solid ${colors.borderColor};
-    border-bottom: 1px solid ${colors.borderColor};
-    border-left: 1px solid ${colors.borderColor};
-  }
-  border-radius: 10px;
-`
 const LinkWrapper = styled.div`
   padding-top: 30px;
   & a {

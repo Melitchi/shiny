@@ -14,7 +14,6 @@ export const ThemeProvider = ({ children }) => {
     </ThemeContext.Provider>
   )
 }
-
 export const SurveyContext = createContext()
 
 export const SurveyProvider = ({ children }) => {
