@@ -2,10 +2,10 @@ import styled from 'styled-components'
 import colors from '../../utils/style/colors'
 import { useContext } from 'react'
 import { SurveyContext, ThemeContext } from '../../utils/context'
-import { useFetch, useTheme } from '../../utils/hooks'
+import { useFetch } from '../../utils/hooks'
 import { Loader, StyledLink } from '../../utils/style/Atoms'
 
-const formatFetchParams = (answers) => {
+export const formatQueryParams = (answers) => {
   const answerNumber = Object.keys(answers)
   return answerNumber.reduce((previousParams, answerNumber, index) => {
     const isFirstParam = index === 0
@@ -14,10 +14,18 @@ const formatFetchParams = (answers) => {
   }, '')
 }
 
+export const formatJobList = (title, listLength, index) => {
+  if (index === listLength - 1) {
+    return title
+  }
+  return `${title},`
+}
+
 const Result = () => {
   const { theme } = useContext(ThemeContext)
   const { answers } = useContext(SurveyContext)
-  const fetchParams = formatFetchParams(answers)
+  const fetchParams = formatQueryParams(answers)
+  console.log('fetchParams ', fetchParams)
 
   const { data, isLoading, error } = useFetch(
     `http://localhost:8000/results?${fetchParams}`,
@@ -58,8 +66,10 @@ const Result = () => {
               theme={theme}
               key={`result-detail-${index}-${result.title}`}
             >
-              <JobTitle theme={theme}>{result.title}</JobTitle>
-              <p>{result.description}</p>
+              <JobTitle theme={theme}>
+                {formatJobList(result.title, resultsData.length, index)}
+              </JobTitle>
+              {<p>{result.description}</p>}
             </JobDescription>
           ))}
       </DescriptionWrapper>

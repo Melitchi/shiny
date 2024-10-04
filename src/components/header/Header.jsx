@@ -2,7 +2,12 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import colors from '../../utils/style/colors'
 import lightLogo from '../../assets/light-logo.png'
+import darkLogo from '../../assets/dark-logo.png'
+
 import './Header.css'
+import { useContext } from 'react'
+import { ThemeContext } from '../../utils/context'
+
 const StyledLink = styled(Link)`
   padding: 15px;
   color: ${colors.secondary};
@@ -23,11 +28,12 @@ const StyledImg = styled.img`
 `
 
 const Header = () => {
+  const { theme } = useContext(ThemeContext)
+  const logo = theme === 'light' ? darkLogo : lightLogo
   return (
     <StyledNav>
       <div className="logo">
-        <StyledImg alt="logo-shiny" src={lightLogo} />
-        <h1 className="title">Shiny</h1>
+        <StyledImg alt="logo-shiny" src={logo} />
       </div>
       <div>
         <StyledLink $isFullLink to="/">
