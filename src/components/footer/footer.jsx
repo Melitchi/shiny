@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import colors from '../../utils/style/colors'
-import { ThemeContext } from '../../utils/context'
-import React, { useContext } from 'react'
+import React from 'react'
+import { useTheme } from '../../utils/hooks'
 const FooterContainer = styled.footer`
   display: flex;
   flex-direction: row;
@@ -18,7 +18,7 @@ const NightModeButton = styled.button`
 `
 
 function Footer() {
-  const { toggleTheme, theme } = useContext(ThemeContext)
+  const { toggleTheme, theme } = useTheme()
 
   return (
     <FooterContainer>

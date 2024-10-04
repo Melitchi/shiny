@@ -1,8 +1,21 @@
-import { render, screen } from '@testing-library/react';
-import App from './Home';
+import { render, screen } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
+import { ThemeProvider } from '../../utils/context'
+import Home from './Home'
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+describe('The Home component', () => {
+  it('should render title', () => {
+    render(
+      <MemoryRouter>
+        <ThemeProvider>
+          <Home />
+        </ThemeProvider>
+      </MemoryRouter>,
+    )
+    const expectedText =
+      ' Repérez vos besoins, on s’occupe du reste, avec les meilleurs talents'
+    expect(
+      screen.getByRole('heading', { level: 2, text: expectedText }),
+    ).toBeTruthy()
+  })
+})
